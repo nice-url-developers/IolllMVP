@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="@dimen/boxShadow">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/systemBar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="164mm"
+                android:elevation="@dimen/boxShadow">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="50mm"
+                    android:layout_height="50mm"
+                    android:layout_marginStart="36mm"
+                    android:layout_marginTop="8mm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="50mm"
+                    android:layout_height="50mm"
+                    android:layout_marginEnd="36mm"
+                    android:layout_marginTop="8mm"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8mm"
+                    android:layout_marginStart="8mm"
+                    android:layout_marginTop="8mm"
+                    android:text="HomePage"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/textBigInfo"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70mm"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableBottom="@drawable/svg_tab_fouce"
+                        android:drawablePadding="10mm"
+                        android:gravity="center"
+                        android:text="日 报"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/textPrimary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawablePadding="5mm"
+                        android:gravity="center"
+                        android:text="收 藏"
+                        android:textColor="@color/colorTextDefualt"
+                        android:textSize="@dimen/textPrimary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawablePadding="5mm"
+                        android:gravity="center"
+                        android:text="Class"
+                        android:textColor="@color/colorTextDefualt"
+                        android:textSize="@dimen/textPrimary" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/boxMargin"
+        android:id="@+id/mainList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

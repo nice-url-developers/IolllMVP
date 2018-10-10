@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".modules.main.v.MainActivity">
+    <com.iolll.liubo.mvppp_simple.widget.NoScrollViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        
+    </com.iolll.liubo.mvppp_simple.widget.NoScrollViewPager>
+    <android.support.v7.widget.CardView
+        app:cardElevation="@dimen/boxShadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="98mm">
+
+    </android.support.design.widget.TabLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

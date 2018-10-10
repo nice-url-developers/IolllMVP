@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textBigInfo">34mm</dimen>
+    <dimen name="textPrimary">28mm</dimen>
+    <dimen name="textBigPrimary">48mm</dimen>
+
+    <dimen name="boxShadow">5mm</dimen>
+    <dimen name="boxMargin">15mm</dimen>
+    <dimen name="cardCornerRadius">25mm</dimen>
+</resources>
