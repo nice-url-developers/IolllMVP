@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.iolll.liubo.mvppp_simple.R;
 import com.iolll.liubo.mvppp_simple.utils.RxLifecycleUtils;
 import com.iolll.liubo.mvppp_simple.utils.Utils;
 import com.uber.autodispose.AutoDisposeConverter;
@@ -25,7 +26,8 @@ import butterknife.ButterKnife;
  * 基于MVP模式封装的基类Activity
  */
 
-public abstract class MvpActivity<V> extends AppCompatActivity implements View {
+public abstract class MvpActivity<V> extends AppCompatActivity implements IView {
+    android.view.View systemBar;
     protected Context context;
     public ArrayList<? extends Presenter<V>> presenters;
 
@@ -35,9 +37,7 @@ public abstract class MvpActivity<V> extends AppCompatActivity implements View {
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         context = MvpActivity.this;
-        ImmersionBar.with(this)
-                .statusBarDarkFont(true, 0.2f)
-                .init();
+        initImmersionBar();
         //创建presenter
         presenters = createPresenter();
         //绑定(presenter和View进行绑定)
@@ -55,7 +55,17 @@ public abstract class MvpActivity<V> extends AppCompatActivity implements View {
         //初始化控件
         iniViews();
     }
-
+    /**
+     * 初始化沉浸式
+     */
+    private void initImmersionBar() {
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true, 0.2f)
+                .init();
+        systemBar = findViewById(R.id.systemBar);
+        if (null!=systemBar)
+            ImmersionBar.setStatusBarView(this,systemBar);
+    }
     private void iniViews() {
         initView();
         initData();//处理getIntent值
