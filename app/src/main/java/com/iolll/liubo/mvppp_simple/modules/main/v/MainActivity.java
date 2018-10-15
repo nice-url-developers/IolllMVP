@@ -3,11 +3,9 @@ package com.iolll.liubo.mvppp_simple.modules.main.v;
 import android.support.design.widget.TabLayout;
 
 import com.iolll.liubo.mvppp_simple.R;
-import com.iolll.liubo.mvppp_simple.adapter.FragmentAdapter;
 import com.iolll.liubo.mvppp_simple.base.iolll.BaseLazyFragment;
 import com.iolll.liubo.mvppp_simple.base.iolll.MvpActivity;
 import com.iolll.liubo.mvppp_simple.base.iolll.Presenter;
-import com.iolll.liubo.mvppp_simple.model.net.FuLi;
 import com.iolll.liubo.mvppp_simple.modules.main.v_contrast.MainContrast;
 import com.iolll.liubo.mvppp_simple.modules.main.v_contrast.p_impl.MainPresenterImpl;
 import com.iolll.liubo.mvppp_simple.utils.Utils;
@@ -27,11 +25,7 @@ public class MainActivity extends MvpActivity implements MainContrast.V {
     private MainPresenterImpl presenter;
 
 
-    ArrayList<BaseLazyFragment> fragments;
-    ArrayList<FuLi> titles =  new ArrayList<FuLi>() {{
-        add(new FuLi("Home", "",R.drawable.ic_launcher_background));
-        add(new FuLi("Setting", "",R.drawable.ic_launcher_foreground));
-    }};
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -43,14 +37,12 @@ public class MainActivity extends MvpActivity implements MainContrast.V {
             presenter = new MainPresenterImpl();
             add(presenter);
             // 暂且寄人篱下
-            fragments = new ArrayList<BaseLazyFragment>() {{
+            presenter.fragments = new ArrayList<BaseLazyFragment>() {{
+                add(new MainFragment());
+                add(new MainFragment());
                 add(new MainFragment());
                 add(new MainFragment());
             }};
-            for (BaseLazyFragment f : fragments) {
-                f.setLifecycleOwner(getLifecycleOwner());
-                getLifecycle().addObserver(f);
-            }
         }};
 
     }
@@ -63,19 +55,18 @@ public class MainActivity extends MvpActivity implements MainContrast.V {
         tabLayout.setTabTextColors(Utils.getColor(R.color.colorTextInfo2),Utils.getColor(R.color.colorTextAccent));
         tabLayout.setSelectedTabIndicatorColor(Utils.getColor(R.color.transparent));
         viewPager.setOffscreenPageLimit(3);
-        presenter.fragmentAdapter = new FragmentAdapter(getSupportFragmentManager()
-                , fragments,
-               titles);
+        presenter.initFragmentAdapter(getSupportFragmentManager());
 
 //        tabLayout.setupWithViewPager(viewPager);
         //viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         //使用自定义TAB
-        for (int i = 0; i < fragments.size(); i++) {
+        for (int i = 0; i < presenter.fragments.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(presenter.fragmentAdapter.getPageTitle(i)).setIcon(presenter.fragmentAdapter.getTitles(i).getIcon()));
         }
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println(tab.getPosition());
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

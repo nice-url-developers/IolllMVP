@@ -25,8 +25,8 @@
 ////                button1_tv.setBackground(Utils.getDrawable(R.drawable.btn_primary_no_radius));
 ////                button2_tv.setBackground(Utils.getDrawable(R.drawable.btn_info_no_radius));
 ////                button2_tv.setTextColor(Color.parseColor("#ffffff"));
-////                button1_tv.setVisibility(View.VISIBLE);
-////                button2_tv.setVisibility(View.VISIBLE);
+////                button1_tv.setVisibility(IView.VISIBLE);
+////                button2_tv.setVisibility(IView.VISIBLE);
 //            } else {
 //                v.hideAllBotton();
 //            }

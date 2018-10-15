@@ -3,7 +3,7 @@
 //
 //import android.graphics.Color;
 //import android.support.v7.widget.LinearLayoutManager;
-//import android.view.View;
+//import android.view.IView;
 //
 //import com.iolll.liubo.mvppp_simple.R;
 //import com.iolll.liubo.mvppp_simple.base.iolll.MvpActivity;
@@ -77,15 +77,15 @@
 //
 //    @Override
 //    public void inApproval() {
-//        planeAlterDetailBt1.setVisibility(View.GONE);
+//        planeAlterDetailBt1.setVisibility(IView.GONE);
 //        planeAlterDetailBt1.setText("");
 //        planeAlterDetailBt2.setText(Utils.getString(R.string.plane_order_cancel_order));
 //        planeAlterDetailBt2.setBackgroundColor(Color.parseColor("#e1e1e1"));
 //        planeAlterDetailBt2.setTextColor(Color.parseColor("#333333"));
-//        planeAlterDetailBt2.setVisibility(View.VISIBLE);
+//        planeAlterDetailBt2.setVisibility(IView.VISIBLE);
 //        planeAlterDetailBt2.setOnClickListener(new OnMultiTypeListener() {
 //            @Override
-//            public void onOneClick(View v) {
+//            public void onOneClick(IView v) {
 //                super.onOneClick(v);
 //                DialogUtil.showDialog(context, Utils.getString(R.string.base_dialog_title), Utils.getString(R.string.base_dialog_cancle), Utils.getString(R.string.base_dialog_confirm), Utils.getString(R.string.plane_order_dialog_info_confirm_cancel_order), new MyDialog.OnButtonClickListener() {
 //                    @Override
@@ -114,10 +114,10 @@
 //
 //    @Override
 //    public void waitConfirmationAlterTickets(boolean isMonthly) {
-//        planeAlterDetailBt1.setVisibility(View.VISIBLE);
-//        planeAlterDetailBt2.setVisibility(View.VISIBLE);
-//        layoutApproveChose.setVisibility(View.GONE);
-//        planeAlterDetailApproveinfo.setVisibility(View.GONE);
+//        planeAlterDetailBt1.setVisibility(IView.VISIBLE);
+//        planeAlterDetailBt2.setVisibility(IView.VISIBLE);
+//        layoutApproveChose.setVisibility(IView.GONE);
+//        planeAlterDetailApproveinfo.setVisibility(IView.GONE);
 ////        if (!TextUtils.isEmpty(presenter.getmBean().getPayType())) {
 //            planeAlterDetailBt1.setText(isMonthly ? Utils.getString(R.string.place_after_confim_the_change) :
 //                    Utils.getString(R.string.place_after_payment));//1表示月结
@@ -128,7 +128,7 @@
 //        planeAlterDetailBt2.setTextColor(Color.parseColor("#333333"));
 //        planeAlterDetailBt1.setOnClickListener(new OnMultiTypeListener() {
 //            @Override
-//            public void onOneClick(View v) {
+//            public void onOneClick(IView v) {
 //                super.onOneClick(v);
 //                planeFooterPresenter.confirmOutTicket();
 //                MobclickAgent.onEvent(context, EVENT_AIR_TICKET);
@@ -136,7 +136,7 @@
 //        });
 //        planeAlterDetailBt2.setOnClickListener(new OnMultiTypeListener() {
 //            @Override
-//            public void onOneClick(View v) {
+//            public void onOneClick(IView v) {
 //                super.onOneClick(v);
 //                DialogUtil.showDialog(context, Utils.getString(R.string.base_dialog_title), Utils.getString(R.string.base_dialog_cancle), Utils.getString(R.string.base_dialog_confirm), Utils.getString(R.string.plane_order_dialog_info_confirm_cancel_order), new MyDialog.OnButtonClickListener() {
 //                    @Override
@@ -163,10 +163,10 @@
 //
 //    @Override
 //    public void alteredTicket() {
-//        planeAlterDetailBt1.setVisibility(View.VISIBLE);
-//        planeAlterDetailBt2.setVisibility(View.VISIBLE);
-//        layoutApproveChose.setVisibility(View.GONE);
-//        planeAlterDetailApproveinfo.setVisibility(View.GONE);
+//        planeAlterDetailBt1.setVisibility(IView.VISIBLE);
+//        planeAlterDetailBt2.setVisibility(IView.VISIBLE);
+//        layoutApproveChose.setVisibility(IView.GONE);
+//        planeAlterDetailApproveinfo.setVisibility(IView.GONE);
 //        planeAlterDetailBt1.setBackground(getResources().getDrawable(R.drawable.btn_primary_no_radius));
 //
 //
@@ -175,7 +175,7 @@
 //        planeAlterDetailBt1.setText(Utils.getString(R.string.place_after_refund_a_ticket));
 //        planeAlterDetailBt1.setOnClickListener(new OnMultiTypeListener() {
 //            @Override
-//            public void onOneClick(View v) {
+//            public void onOneClick(IView v) {
 //                super.onOneClick(v);
 //                if (planeFooterPresenter.isInternational) {
 //                   showCallPhone(R.string.cantGqTpNotice);
@@ -188,7 +188,7 @@
 //        planeAlterDetailBt2.setText(Utils.getString(R.string.place_after_ticket_changes));
 //        planeAlterDetailBt2.setOnClickListener(new OnMultiTypeListener() {
 //            @Override
-//            public void onOneClick(View v) {
+//            public void onOneClick(IView v) {
 //                super.onOneClick(v);
 //                if (planeFooterPresenter.isInternational) {
 //                    showCallPhone(R.string.cantGqTpNotice);
@@ -204,10 +204,10 @@
 //
 //    @Override
 //    public void hideAllBotton() {
-//        planeAlterDetailBt1.setVisibility(View.GONE);
-//        planeAlterDetailBt2.setVisibility(View.GONE);
-//        layoutApproveChose.setVisibility(View.GONE);
-//        planeAlterDetailApproveinfo.setVisibility(View.GONE);
+//        planeAlterDetailBt1.setVisibility(IView.GONE);
+//        planeAlterDetailBt2.setVisibility(IView.GONE);
+//        layoutApproveChose.setVisibility(IView.GONE);
+//        planeAlterDetailApproveinfo.setVisibility(IView.GONE);
 //    }
 //
 //

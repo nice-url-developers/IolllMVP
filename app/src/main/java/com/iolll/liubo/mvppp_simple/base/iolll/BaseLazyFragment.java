@@ -1,10 +1,6 @@
 package com.iolll.liubo.mvppp_simple.base.iolll;
 
 import android.app.Activity;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -17,9 +13,11 @@ import android.view.ViewGroup;
 import com.gyf.barlibrary.ImmersionBar;
 import com.iolll.liubo.mvppp_simple.R;
 import com.iolll.liubo.mvppp_simple.utils.RxLifecycleUtils;
+import com.iolll.liubo.mvppp_simple.utils.Utils;
 import com.uber.autodispose.AutoDisposeConverter;
 
-import butterknife.BindView;
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -28,12 +26,11 @@ import butterknife.Unbinder;
  * Created by geyifeng on 2017/4/7.
  * Changed by liubo on 2018/10/10.
  */
-public abstract class BaseLazyFragment extends Fragment implements LifecycleObserver {
-    @BindView(R.id.systemBar)
+public abstract class BaseLazyFragment<V> extends Fragment implements IView {
     View systemBar;
     protected Activity mActivity;
     protected View mRootView;
-
+    public ArrayList<? extends Presenter<V>> presenters;
     /**
      * 是否对用户可见
      */
@@ -79,6 +76,16 @@ public abstract class BaseLazyFragment extends Fragment implements LifecycleObse
             if (isImmersionBarEnabled())
                 initImmersionBar();
         }
+        //创建presenter
+        presenters = createPresenter();
+        //绑定(presenter和View进行绑定)
+        if (null != presenters) {
+            for (Presenter<V> presenter : presenters) {
+                presenter.attachView((V) this);
+            }
+
+        }
+
         initView();
         setListener();
     }
@@ -87,6 +94,12 @@ public abstract class BaseLazyFragment extends Fragment implements LifecycleObse
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        //绑定(presenter和View进行绑定)
+        if (null != presenters)
+            for (Presenter<V> presenter : presenters) {
+                presenter.detachView();
+            }
+
         if (mImmersionBar != null)
             mImmersionBar.destroy();
     }
@@ -157,11 +170,14 @@ public abstract class BaseLazyFragment extends Fragment implements LifecycleObse
      * 初始化沉浸式
      */
     protected void initImmersionBar() {
+        System.out.println("  initImmersionBar ");
         mImmersionBar = ImmersionBar.with(this)
                 .statusBarDarkFont(true, 0.2f); //原理：如果当前设备支持状态栏字体变色，会设置状态栏字体为黑色，如果当前设备不支持状态栏字体变色，会使当前状态栏加上透明度，否则不执行透明度;
         mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
+        systemBar = mRootView.findViewById(R.id.systemBar);
         if (null!=systemBar)
             ImmersionBar.setStatusBarView(getActivity(),systemBar);
+        System.out.println(" initImmersionBar bar" + systemBar);
     }
 
     /**
@@ -184,7 +200,9 @@ public abstract class BaseLazyFragment extends Fragment implements LifecycleObse
     protected void onInvisible() {
 
     }
-
+    public  ArrayList<? extends Presenter<V>> createPresenter(){
+        return null;
+    }
     /**
      * 找到activity的控件
      *
@@ -200,48 +218,17 @@ public abstract class BaseLazyFragment extends Fragment implements LifecycleObse
 
 
 
-    public void setLifecycleOwner(LifecycleOwner lifecycleOwner) {
-        this.lifecycleOwner = lifecycleOwner;
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    public void onCreate(LifecycleOwner owner) {
-
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void onStart(LifecycleOwner owner) {
-
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    public void onResume(LifecycleOwner owner) {
-
-    }
-
-
-    public void onPause(LifecycleOwner owner) {
-
-    }
-
-
-    public void onStop(LifecycleOwner owner) {
-
-    }
-
-    public void onDestroy(LifecycleOwner owner) {
-
-    }
-
-
-    public void onLifecycleChanged(LifecycleOwner owner, Lifecycle.Event event) {
-
-    }
-    private LifecycleOwner lifecycleOwner;
 
     protected <T> AutoDisposeConverter<T> bindLifecycle() {
-        if (null == lifecycleOwner)
-            throw new NullPointerException("lifecycleOwner == null");
-        return RxLifecycleUtils.bindLifecycle(lifecycleOwner);
+        return RxLifecycleUtils.bindLifecycle(this);
+    }
+    @Override
+    public void showToast(int msgId) {
+        Utils.toast(msgId);
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Utils.toast(msg);
     }
 }

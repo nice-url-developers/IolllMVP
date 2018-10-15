@@ -1,5 +1,6 @@
 package com.iolll.liubo.mvppp_simple.modules.main.v;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,8 @@ import android.widget.ImageView;
 
 import com.iolll.liubo.mvppp_simple.R;
 import com.iolll.liubo.mvppp_simple.base.iolll.BaseLazyFragment;
+import com.iolll.liubo.mvppp_simple.base.iolll.IView;
+import com.iolll.liubo.mvppp_simple.base.iolll.Presenter;
 import com.iolll.liubo.mvppp_simple.model.net.FuLi;
 import com.iolll.liubo.mvppp_simple.model.net.GankRoot;
 import com.iolll.liubo.mvppp_simple.model.ui.Banner;
@@ -17,7 +20,6 @@ import com.iolll.liubo.mvppp_simple.net.DataManager;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import me.drakeet.multitype.Items;
@@ -27,7 +29,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
 /**
  * Created by LiuBo on 2018/10/10.
  */
-public class MainFragment extends BaseLazyFragment {
+public class MainFragment extends BaseLazyFragment<IView> {
 
     @BindView(R.id.imageView)
     ImageView imageView;
@@ -35,8 +37,6 @@ public class MainFragment extends BaseLazyFragment {
     ImageView imageView2;
     @BindView(R.id.mainList)
     RecyclerView mainList;
-    Unbinder unbinder;
-
 
     private MultiTypeAdapter adapter = new MultiTypeAdapter();
     private Items items = new Items();
@@ -44,6 +44,17 @@ public class MainFragment extends BaseLazyFragment {
     @Override
     protected int setLayoutId() {
         return R.layout.fragment_main;
+    }
+
+    @Override
+    public ArrayList<? extends Presenter<IView>> createPresenter() {
+        return super.createPresenter();
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+
     }
 
     @Override
@@ -67,13 +78,13 @@ public class MainFragment extends BaseLazyFragment {
     @Override
     public void onResume() {
         super.onResume();
-       getDaily();
+        getDaily();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+
     }
 
     public void dailySuccess(ArrayList<FuLi> daily) {
@@ -83,27 +94,42 @@ public class MainFragment extends BaseLazyFragment {
     }
 
 
+    @SuppressLint("CheckResult")
     public void getDaily() {
-        DataManager.getDaily().as(this.<GankRoot>bindLifecycle()).subscribe(new Observer<GankRoot>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+        DataManager.getDaily()
+                .as(this.<GankRoot>bindLifecycle())
+                .subscribe(new Observer<GankRoot>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            }
+                    }
 
-            @Override
-            public void onNext(GankRoot gankRoot) {
-                dailySuccess(gankRoot.getResults());
-            }
+                    @Override
+                    public void onNext(GankRoot gankRoot) {
+                        dailySuccess(gankRoot.getResults());
+                    }
 
-            @Override
-            public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-            }
+                    }
 
-            @Override
-            public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-            }
-        });
+                    }
+                });
     }
+
+    @Override
+    public void showToast(String msg) {
+
+    }
+
+    @Override
+    public void showToast(int msgId) {
+
+    }
+
+
 }
